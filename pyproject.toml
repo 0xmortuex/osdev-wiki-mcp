@@ -1,0 +1,46 @@
+[project]
+name = "osdev-wiki-mcp"
+version = "0.1.0"
+description = "MCP server giving AI agents offline, searchable access to the OSDev wiki (wiki.osdev.org) - full-text search, sections, links."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "0xmortuex" }]
+requires-python = ">=3.10"
+dependencies = ["mcp>=2.0.0", "zstandard>=0.22"]
+keywords = ["mcp", "osdev", "wiki", "operating-system", "kernel", "search", "ai-agent"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: System :: Operating System Kernels",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "anyio"]
+
+[project.urls]
+Homepage = "https://github.com/0xmortuex/osdev-wiki-mcp"
+
+[project.scripts]
+osdev-wiki-mcp = "osdev_wiki_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/osdev_wiki_mcp"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[[tool.mypy.overrides]]
+# zstandard ships no type stubs or py.typed marker.
+module = ["zstandard"]
+ignore_missing_imports = true

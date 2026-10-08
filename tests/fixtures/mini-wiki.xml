@@ -1,0 +1,130 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" version="0.11" xml:lang="en">
+  <siteinfo>
+    <sitename>OSDev Wiki</sitename>
+    <base>https://wiki.osdev.org/Main_Page</base>
+  </siteinfo>
+  <page>
+    <title>Triple Fault</title>
+    <ns>0</ns>
+    <id>1</id>
+    <revision>
+      <id>10</id>
+      <timestamp>2010-01-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">OLD REVISION - must not be indexed</text>
+    </revision>
+  </page>
+  <page>
+    <title>Interrupt Descriptor Table</title>
+    <ns>0</ns>
+    <id>2</id>
+    <revision>
+      <id>20</id>
+      <timestamp>2025-06-05T00:00:00Z</timestamp>
+      <text xml:space="preserve">{{In Progress}}
+The '''Interrupt Descriptor Table''' (IDT) tells the CPU where the [[Interrupt Service Routines]] are. See also [[Triple Fault|triple faults]].
+
+== Structure on IA-32 ==
+=== Gate Descriptor ===
+{| class="wikitable"
+|+Gate Descriptor (32-bit):
+!style="width: 50%;"|63&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="float: right;"&gt;48&lt;/span&gt;
+!style="width: 3%"|47
+|-
+|'''Offset'''&lt;br&gt;31&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="float: right;"&gt;16&lt;/span&gt;
+|style="text-align: center;"|'''P'''
+|}
+* '''P:''' Present bit.
+
+== Structure on x86-64 ==
+=== Gate Descriptor ===
+The 64-bit gate is 16 bytes.
+
+== Example Code ==
+&lt;syntaxhighlight lang="c"&gt;
+struct idt_entry {
+    uint16_t isr_low; // == not a heading ==
+};
+&lt;/syntaxhighlight&gt;
+
+[[Category:X86 CPU]]
+[[Category:Interrupts]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>Triple Fault</title>
+    <ns>0</ns>
+    <id>1</id>
+    <revision>
+      <id>11</id>
+      <timestamp>2014-07-17T05:58:04Z</timestamp>
+      <text xml:space="preserve">{{Quotation
+|Things never to do in an OS #1: {{nested|template}} triple-fault here we come
+|Kemp
+}}
+
+==Causes==
+If a fault occurs while invoking the double fault handler, the system reboots with a triple fault. See [[Interrupt Descriptor Table#Gate Descriptor|the IDT]] and [[Nonexistent Page]].
+
+Note that a fault that occurs while a fault handler is already running does not of itself cause a double or triple fault. For example, if a Segment Not Present Fault occurs while a page fault handler is running, the CPU simply invokes the segment not present handler. Only a fault raised during the delivery of an exception - while the CPU is reading the IDT entry, loading the code segment, or pushing the exception frame onto the stack - counts towards a double fault. The most common cause in a hobby kernel is an IDT that was never loaded, or one whose entries point at a code selector that does not exist in the GDT.
+
+==Avoiding==
+Use a separate [[Task State Segment|TSS]] for double faults.
+
+[[Category:Interrupts]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>IDT</title>
+    <ns>0</ns>
+    <id>3</id>
+    <redirect title="Interrupt Descriptor Table" />
+    <revision>
+      <id>30</id>
+      <timestamp>2008-01-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">#REDIRECT [[Interrupt Descriptor Table]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>Programmable Interval Timer</title>
+    <ns>0</ns>
+    <id>4</id>
+    <revision>
+      <id>40</id>
+      <timestamp>2024-03-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">The Programmable Interval Timer chip (Intel 8253/8254) is an oscillator, a prescaler and 3 independent frequency dividers. The timer can raise IRQ 0.
+
+== I/O Ports ==
+Channel 0 data port is 0x40.</text>
+    </revision>
+  </page>
+  <page>
+    <title>PIT</title>
+    <ns>0</ns>
+    <id>5</id>
+    <revision>
+      <id>50</id>
+      <timestamp>2008-01-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">#REDIRECT [[Programmable Interval Timer]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>APIC Timer</title>
+    <ns>0</ns>
+    <id>6</id>
+    <revision>
+      <id>60</id>
+      <timestamp>2024-01-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">The APIC timer is calibrated against the PIT or the TSC. Unlike the timer chip, it is per-CPU. See [[PIT]].</text>
+    </revision>
+  </page>
+  <page>
+    <title>User:Someone</title>
+    <ns>2</ns>
+    <id>7</id>
+    <revision>
+      <id>70</id>
+      <timestamp>2024-01-01T00:00:00Z</timestamp>
+      <text xml:space="preserve">User pages must not be indexed: triple fault triple fault triple fault.</text>
+    </revision>
+  </page>
+</mediawiki>

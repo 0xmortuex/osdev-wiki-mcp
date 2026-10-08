@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.0xmortuex/osdev-wiki-mcp",
+  "description": "The OSDev wiki (wiki.osdev.org) offline and searchable: search, sections, links.",
+  "repository": {
+    "url": "https://github.com/0xmortuex/osdev-wiki-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "osdev-wiki-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "OSDEV_WIKI_DIR",
+          "description": "Where to keep the downloaded index (default: per-user data dir)",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
